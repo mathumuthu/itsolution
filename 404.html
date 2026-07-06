@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Stackley</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0505;
+            --accent-gold: #c9a96e;
+            --text-primary: #f5f0e8;
+            --text-secondary: #b8a89a;
+            --text-muted: #7a6b5e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container { max-width: 600px; }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            color: var(--accent-gold);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 16px 50px;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn-home:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 5rem; }
+            h2 { font-size: 1.5rem; }
+        }
+        .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 50px;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    background: transparent;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-home:hover {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--bg-dark);
+}
+    </style>
+<!-- <base target="_blank"> -->
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>
+            The page you are looking for might have been removed, had its name
+            changed, or is temporarily unavailable. Please check the URL or
+            navigate back to the homepage.
+        </p>
+
+        <div class="button-group">
+            <button class="btn-home" onclick="history.back()">
+                ← Previous Page
+            </button>
+
+            <a href="index.html" class="btn-home">
+                Back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>

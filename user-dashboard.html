@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stackly IT Solutions - User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>/* ============================================
+   STACKLY ADMIN DASHBOARD - STYLE.CSS
+   Modern, Professional, Responsive Design
+   ============================================ */
+
+/* CSS Variables */
+:root {
+    --primary-color: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary-color: #64748b;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --info-color: #3b82f6;
+    --dark-color: #1e293b;
+    --light-color: #f8fafc;
+    --sidebar-width: 280px;
+    --sidebar-collapsed: 80px;
+    --header-height: 70px;
+    --transition-speed: 0.3s;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f1f5f9;
+    color: #334155;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-speed) ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    z-index: 1040;
+    transition: all var(--transition-speed) ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+
+/* Sidebar Header / Logo */
+.sidebar-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    min-height: var(--header-height);
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    padding: 5px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.sidebar-close:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu {
+    padding: 0 15px;
+}
+
+.menu-item {
+    margin-bottom: 4px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--primary-color);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    border-radius: 0 4px 4px 0;
+}
+
+.menu-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+
+.menu-link:hover::before {
+    transform: scaleY(1);
+}
+
+.menu-item.active .menu-link {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.05));
+}
+
+.menu-item.active .menu-link::before {
+    transform: scaleY(1);
+}
+
+.menu-icon {
+    width: 24px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.menu-text {
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
+
+/* Sidebar Footer / Logout */
+.sidebar-footer {
+    padding: 15px;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: #ef4444;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+/* ============================================
+   MAIN WRAPPER
+   ============================================ */
+.main-wrapper {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+    transition: margin-left var(--transition-speed) ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================
+   HEADER STYLES
+   ============================================ */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: #fff;
+    height: var(--header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hamburger-menu,
+.sidebar-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.hamburger-menu:hover,
+.sidebar-toggle:hover {
+    background: #f1f5f9;
+    color: var(--primary-color);
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+    width: 300px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    font-size: 14px;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Header Right */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-icon-wrapper {
+    position: relative;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #64748b;
+    font-size: 18px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.header-icon:hover {
+    background: #f1f5f9;
+    color: var(--primary-color);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background: var(--danger-color);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px 6px 6px;
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.profile-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.profile-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: #334155;
+}
+
+.profile-arrow {
+    font-size: 12px;
+    color: #94a3b8;
+    transition: transform 0.3s;
+}
+
+.profile-dropdown.active .profile-arrow {
+    transform: rotate(180deg);
+}
+
+.profile-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow-lg);
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1050;
+    border: 1px solid #e2e8f0;
+}
+
+.profile-dropdown.active .profile-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #334155;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #f1f5f9;
+    color: var(--primary-color);
+}
+
+.dropdown-item.text-danger:hover {
+    background: #fef2f2;
+    color: var(--danger-color);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 8px 0;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {
+    flex: 1;
+    padding: 24px;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Header */
+.section-header {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.breadcrumb-item a {
+    color: #64748b;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-color);
+}
+
+.breadcrumb-item.active {
+    color: #334155;
+    font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #cbd5e1;
+}
+
+/* ============================================
+   CONTENT SECTIONS (Hidden by default)
+   ============================================ */
+.content-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* ============================================
+   STAT CARDS
+   ============================================ */
+.stat-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    border: 1px solid #f1f5f9;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+}
+
+.stat-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-change {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-change.positive {
+    color: var(--success-color);
+}
+
+.stat-change.negative {
+    color: var(--danger-color);
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.bg-primary-soft { background: rgba(99, 102, 241, 0.1); }
+.bg-success-soft { background: rgba(16, 185, 129, 0.1); }
+.bg-warning-soft { background: rgba(245, 158, 11, 0.1); }
+.bg-info-soft { background: rgba(59, 130, 246, 0.1); }
+.bg-danger-soft { background: rgba(239, 68, 68, 0.1); }
+
+/* ============================================
+   CONTENT CARDS
+   ============================================ */
+.content-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+}
+
+.card-header-custom {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.card-body-custom {
+    padding: 24px;
+}
+
+/* ============================================
+   CHART PLACEHOLDER
+   ============================================ */
+.chart-placeholder {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 0;
+}
+
+.chart-bars {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 250px;
+    gap: 16px;
+    padding: 0 10px;
+}
+
+.chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--primary-color), var(--primary-dark));
+    border-radius: 8px 8px 0 0;
+    min-width: 30px;
+    transition: all 0.3s ease;
+    animation: growUp 1s ease forwards;
+    transform-origin: bottom;
+    opacity: 0.8;
+}
+
+.chart-bar:hover {
+    opacity: 1;
+    transform: scaleY(1.05);
+}
+
+@keyframes growUp {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 12px;
+    padding: 0 10px;
+}
+
+.chart-labels span {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* ============================================
+   DISTRIBUTION CHART
+   ============================================ */
+.distribution-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.distribution-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.distribution-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.distribution-name {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.distribution-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.progress-custom {
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-custom {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.table-custom {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-custom thead th {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.table-custom tbody td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.table-custom tbody tr {
+    transition: background 0.2s;
+}
+
+.table-custom tbody tr:hover {
+    background: #f8fafc;
+}
+
+.case-id {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 13px;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.client-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Badges */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-active {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+.status-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+}
+
+.status-closed {
+    background: rgba(100, 116, 139, 0.1);
+    color: var(--secondary-color);
+}
+
+.badge-role {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-admin {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+}
+
+.role-lawyer {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--info-color);
+}
+
+.role-clerk {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+/* Action Buttons */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: #64748b;
+    margin-right: 4px;
+    transition: all 0.2s;
+}
+
+.btn-action:hover {
+    background: #f1f5f9;
+    color: var(--primary-color);
+}
+
+.btn-action.text-danger:hover {
+    background: #fef2f2;
+    color: var(--danger-color);
+}
+
+/* ============================================
+   CATEGORY CARDS (Law Section)
+   ============================================ */
+.category-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+}
+
+.category-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+}
+
+.category-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.category-card p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   DOCUMENT CARDS
+   ============================================ */
+.document-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.document-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+}
+
+.document-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.document-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e293b;
+}
+
+.document-card p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.document-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.document-meta span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* ============================================
+   SETTINGS FORM
+   ============================================ */
+.settings-form .form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #f8fafc;
+    transition: all 0.3s;
+    outline: none;
+    color: #334155;
+}
+
+.form-control-custom:focus {
+    border-color: var(--primary-color);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Notification Settings */
+.notification-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-check-custom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.form-check-custom input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.form-check-custom label {
+    font-size: 14px;
+    color: #334155;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.main-footer {
+    padding: 20px 24px;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    background: #fff;
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ============================================
+   MOBILE OVERLAY
+   ============================================ */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1035;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   COLLAPSED SIDEBAR (Desktop)
+   ============================================ */
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed);
+}
+
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed .logout-btn span {
+    opacity: 0;
+    display: none;
+}
+
+.sidebar.collapsed .logo-container {
+    justify-content: center;
+}
+
+.sidebar.collapsed .menu-link {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar.collapsed .sidebar-menu {
+    padding: 0 10px;
+}
+
+.sidebar.collapsed .logout-btn {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar.collapsed + .main-wrapper {
+    margin-left: var(--sidebar-collapsed);
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+@media (max-width: 1199.98px) {
+    .search-box {
+        width: 200px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    /* Sidebar becomes overlay on mobile */
+    .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+        width: var(--sidebar-width);
+    }
+
+    .sidebar.collapsed .logo-text,
+    .sidebar.collapsed .menu-text,
+    .sidebar.collapsed .logout-btn span {
+        display: inline;
+        opacity: 1;
+    }
+
+    .sidebar.collapsed .menu-link {
+        justify-content: flex-start;
+        padding: 12px 16px;
+    }
+
+    .sidebar.collapsed .sidebar-menu {
+        padding: 0 15px;
+    }
+
+    .sidebar.collapsed .logout-btn {
+        justify-content: flex-start;
+        padding: 12px 16px;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    .sidebar-close {
+        display: block;
+    }
+
+    .search-box {
+        width: 180px;
+    }
+
+    .profile-name {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-content {
+        padding: 16px;
+    }
+
+    .section-title {
+        font-size: 22px;
+    }
+
+    .search-box {
+        width: 140px;
+    }
+
+    .search-input {
+        padding: 8px 10px 8px 36px;
+        font-size: 13px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .card-header-custom {
+        padding: 16px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .table-custom thead th,
+    .table-custom tbody td {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .client-avatar {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .main-header {
+        padding: 0 12px;
+    }
+
+    .header-left {
+        gap: 8px;
+    }
+
+    .header-right {
+        gap: 4px;
+    }
+
+    .search-box {
+        width: 120px;
+    }
+
+    .main-content {
+        padding: 12px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+
+    .category-card {
+        padding: 20px;
+    }
+
+    .category-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+/* Smooth scrollbar for main content */
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: #fff;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-outline-secondary:hover {
+    background: #f1f5f9;
+}
+
+.btn-outline-danger {
+    background: transparent;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.btn-outline-danger:hover {
+    background: var(--danger-color);
+    color: #fff;
+}
+
+.btn-outline-success {
+    background: transparent;
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.btn-outline-success:hover {
+    background: var(--success-color);
+    color: #fff;
+}
+
+.btn-outline-warning {
+    background: transparent;
+    color: var(--warning-color);
+    border: 1px solid var(--warning-color);
+}
+
+.btn-outline-warning:hover {
+    background: var(--warning-color);
+    color: #fff;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* Utility classes */
+.text-danger {
+    color: var(--danger-color) !important;
+}
+
+.ms-2 {
+    margin-left: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+
+
+}
+
+        
+.logo{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.logo-img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.logo-text{
+    font-family:'Playfair Display', serif;
+    font-size:24px;
+    font-weight:600;
+    color:#fff;
+    margin:0;
+}
+
+
+
+
+
+
+@media (max-width:576px){
+    .search-box{
+        display:none;
+    }
+}
+
+@media (max-width:576px){
+    .header-icon{
+        width:34px;
+        height:34px;
+        font-size:15px;
+    }
+}
+@media (max-width:576px){
+    .logo-img{
+        width:38px;
+        height:38px;
+    }
+
+    .logo-text{
+        font-size:20px;
+    }
+}
+
+
+@media (max-width:576px){
+    .sidebar{
+        width:260px;
+    }
+}
+
+@media (max-width:576px){
+
+    .stat-card,
+    .content-card,
+    .category-card,
+    .document-card{
+        padding:15px;
+        border-radius:12px;
+    }
+
+}
+
+
+.table-responsive{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+
+
+@media (max-width:576px){
+
+    .btn{
+        width:100%;
+        margin-top:8px;
+    }
+
+}
+@media (max-width:576px){
+
+    .main-header{
+        height:60px;
+        padding:0 10px;
+    }
+
+}
+@media (max-width:576px){
+
+    .stat-value{
+        font-size:20px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+   MOBILE RESPONSIVE FIX
+========================= */
+
+html,
+body{
+    overflow-x:hidden;
+    width:100%;
+}
+
+.main-wrapper{
+    width:100%;
+    overflow-x:hidden;
+}
+
+.main-content{
+    width:100%;
+    overflow-x:hidden;
+}
+
+/* Cards */
+@media (max-width:768px){
+
+    .row{
+        --bs-gutter-x:1rem;
+    }
+
+    .stat-card{
+        margin-bottom:15px;
+    }
+
+    .stat-card-content{
+        flex-direction:column;
+        gap:15px;
+        align-items:flex-start;
+    }
+
+    .stat-icon{
+        align-self:flex-end;
+    }
+
+    .content-card{
+        overflow:hidden;
+    }
+
+    .card-body-custom{
+        padding:15px;
+    }
+
+}
+
+/* Charts */
+
+@media (max-width:768px){
+
+    .chart-placeholder{
+        height:220px;
+    }
+
+    .chart-bars{
+        height:170px;
+        gap:8px;
+    }
+
+    .chart-bar{
+        min-width:14px;
+    }
+
+}
+
+/* Tables */
+
+.table-responsive{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.table-custom{
+    min-width:700px;
+}
+
+/* Header */
+
+@media(max-width:768px){
+
+    .main-header{
+        padding:0 12px;
+    }
+
+    .header-right{
+        gap:6px;
+    }
+
+    .profile-btn{
+        padding:5px;
+        border:none;
+    }
+
+}
+
+/* Sidebar */
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:260px;
+    }
+
+}
+
+/* Content */
+
+@media(max-width:768px){
+
+    .section-title{
+        font-size:22px;
+    }
+
+    .main-content{
+        padding:15px;
+    }
+
+}
+
+/* Notification List */
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.notification-item:hover {
+    background: #f1f5f9;
+}
+
+.notification-item.unread {
+    background: #fff;
+    border-left: 3px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+.notification-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content h6 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+}
+
+.notification-content p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 6px 0;
+    line-height: 1.5;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+
+/* ============================================
+   DESKTOP VIEW FIXES (992px and above)
+   ============================================ */
+
+@media (min-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-width);
+        height: 100vh;
+        transform: translateX(0) !important;
+        z-index: 1040;
+    }
+
+    .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+    }
+
+    .sidebar.collapsed .logo-text,
+    .sidebar.collapsed .menu-text,
+    .sidebar.collapsed .logout-btn span {
+        opacity: 0;
+        display: none;
+    }
+
+    .sidebar.collapsed .logo-container,
+    .sidebar.collapsed .menu-link,
+    .sidebar.collapsed .logout-btn {
+        justify-content: center;
+    }
+
+    .sidebar.collapsed .menu-link {
+        padding: 12px;
+    }
+
+    .sidebar.collapsed .sidebar-menu {
+        padding: 0 10px;
+    }
+
+    .sidebar.collapsed .logout-btn {
+        padding: 12px;
+    }
+
+    .main-wrapper {
+        margin-left: var(--sidebar-width);
+    }
+
+    .sidebar.collapsed + .main-wrapper {
+        margin-left: var(--sidebar-collapsed);
+    }
+
+    .mobile-overlay {
+        display: none !important;
+    }
+
+    .sidebar-close {
+        display: none !important;
+    }
+
+    .hamburger-menu {
+        display: none !important;
+    }
+
+    .sidebar-toggle {
+        display: flex !important;
+    }
+
+    /* Stat cards - 4 per row on desktop */
+    .col-xl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    /* Category cards - 4 per row on desktop */
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    /* Document cards - 3 per row on desktop */
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.333333%;
+    }
+
+    /* Charts - 8/4 split on desktop */
+    .col-lg-8 {
+        flex: 0 0 auto;
+        width: 66.666667%;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.333333%;
+    }
+
+    /* Settings - 8/4 split */
+    .col-lg-8 {
+        flex: 0 0 auto;
+        width: 66.666667%;
+    }
+
+    /* Search box visible on desktop */
+    .search-box {
+        display: block;
+        width: 300px;
+    }
+
+    /* Profile name visible */
+    .profile-name {
+        display: inline !important;
+    }
+
+    /* Table responsive - no need for scroll on desktop */
+    .table-responsive {
+        overflow-x: visible;
+    }
+
+    .table-custom {
+        min-width: auto;
+    }
+}
+
+/* ============================================
+   TABLET VIEW (768px - 991px)
+   ============================================ */
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    .sidebar-toggle {
+        display: none !important;
+    }
+
+    .hamburger-menu {
+        display: flex !important;
+    }
+
+    /* Stat cards - 2 per row on tablet */
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Category cards - 2 per row on tablet */
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Document cards - 2 per row on tablet */
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Charts - full width on tablet */
+    .col-lg-8, .col-lg-4 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    /* Settings - full width on tablet */
+    .col-lg-8, .col-lg-4 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .search-box {
+        width: 200px;
+    }
+
+    .profile-name {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   MOBILE VIEW (below 768px)
+   ============================================ */
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 280px !important;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .sidebar-toggle {
+        display: none !important;
+    }
+
+    .hamburger-menu {
+        display: flex !important;
+    }
+
+    /* Stat cards - 2 per row on mobile */
+    .col-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Category cards - 2 per row on mobile */
+    .col-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Document cards - 2 per row on mobile */
+    .col-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    /* Charts - full width on mobile */
+    .col-lg-8, .col-lg-4, .col-md-6 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    /* Settings - full width on mobile */
+    .col-lg-8, .col-lg-4, .col-md-6 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .profile-name {
+        display: none !important;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .section-title {
+        font-size: 22px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    .chart-placeholder {
+        height: 220px;
+    }
+
+    .chart-bars {
+        height: 170px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-custom {
+        min-width: 600px;
+    }
+
+    .card-header-custom {
+        padding: 16px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================
+   EXTRA SMALL MOBILE (below 576px)
+   ============================================ */
+
+@media (max-width: 575.98px) {
+    .main-header {
+        height: 60px;
+        padding: 0 12px;
+    }
+
+    .header-left {
+        gap: 8px;
+    }
+
+    .header-right {
+        gap: 4px;
+    }
+
+    .hamburger-menu, .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .header-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .profile-btn {
+        padding: 4px 8px 4px 4px;
+    }
+
+    .profile-img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .main-content {
+        padding: 12px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .breadcrumb {
+        font-size: 12px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-card-content {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    .stat-change {
+        font-size: 11px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .content-card {
+        border-radius: 12px;
+    }
+
+    .card-header-custom {
+        padding: 14px 16px;
+    }
+
+    .card-body-custom {
+        padding: 16px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .chart-placeholder {
+        height: 200px;
+        padding: 10px 0;
+    }
+
+    .chart-bars {
+        height: 160px;
+        gap: 6px;
+    }
+
+    .chart-bar {
+        min-width: 12px;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .chart-labels {
+        margin-top: 8px;
+    }
+
+    .chart-labels span {
+        font-size: 10px;
+    }
+
+    .distribution-chart {
+        gap: 14px;
+    }
+
+    .distribution-info {
+        font-size: 13px;
+    }
+
+    .progress-custom {
+        height: 6px;
+    }
+
+    .table-custom thead th,
+    .table-custom tbody td {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .client-avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .case-id {
+        font-size: 11px;
+    }
+
+    .badge-status {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+
+    .btn-action {
+        width: 28px;
+        height: 28px;
+    }
+
+    .category-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .category-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        border-radius: 12px;
+    }
+
+    .category-card h4 {
+        font-size: 15px;
+    }
+
+    .category-card p {
+        font-size: 12px;
+    }
+
+    .document-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .document-icon {
+        font-size: 36px;
+    }
+
+    .document-card h5 {
+        font-size: 15px;
+    }
+
+    .document-card p {
+        font-size: 12px;
+    }
+
+    .settings-form .form-label {
+        font-size: 13px;
+    }
+
+    .form-control-custom {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .main-footer {
+        padding: 14px 16px;
+        font-size: 12px;
+    }
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .sidebar-header {
+        padding: 14px 16px;
+        min-height: 60px;
+    }
+
+    .logo-img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    .menu-link {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .menu-icon {
+        font-size: 15px;
+    }
+
+    .notification-item {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .notification-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+
+    .notification-content h6 {
+        font-size: 13px;
+    }
+
+    .notification-content p {
+        font-size: 12px;
+    }
+
+    .notification-time {
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   VERY SMALL SCREENS (below 360px)
+   ============================================ */
+
+@media (max-width: 360px) {
+    .main-header {
+        padding: 0 8px;
+    }
+
+    .header-right {
+        gap: 2px;
+    }
+
+    .header-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .notification-badge {
+        width: 14px;
+        height: 14px;
+        font-size: 8px;
+    }
+
+    .profile-btn {
+        padding: 3px;
+        border: none;
+    }
+
+    .profile-img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .main-content {
+        padding: 8px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .chart-bars {
+        gap: 4px;
+    }
+
+    .chart-bar {
+        min-width: 10px;
+    }
+
+    .table-custom thead th,
+    .table-custom tbody td {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+/* ============================================
+   BASE FIXES (All Screens)
+   ============================================ */
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.main-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.main-content {
+    width: 100%;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+    --bs-gutter-x: 1.5rem;
+}
+
+.row > * {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.container, .container-fluid {
+    max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+* {
+    max-width: 100%;
+}
+
+img, video, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.stat-card, .content-card, .category-card, .document-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .menu-link:hover {
+        background: none;
+    }
+
+    .menu-item.active .menu-link {
+        background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.05));
+    }
+
+    .stat-card:hover,
+    .category-card:hover,
+    .document-card:hover {
+        transform: none;
+        box-shadow: var(--box-shadow);
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .btn-primary:hover {
+        box-shadow: none;
+    }
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+    .sidebar {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .main-content {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
+
+
+
+.container-fluid{
+    width:100%;
+    max-width:100%;
+}
+
+.main-wrapper{
+    transition:.3s;
+}
+
+.main-content{
+    min-height:calc(100vh - 70px);
+}
+
+.content-card,
+.stat-card,
+.category-card,
+.document-card{
+    border-radius:14px;
+}
+
+/* ===============================
+   DESKTOP VIEW (992px and Above)
+================================= */
+
+@media (min-width: 992px) {
+
+    /* Sidebar */
+    .sidebar{
+        width:280px;
+        transform:translateX(0);
+        position:fixed;
+        left:0;
+        top:0;
+        height:100vh;
+    }
+
+    .main-wrapper{
+        margin-left:280px;
+        width:calc(100% - 280px);
+    }
+
+    /* Header */
+    .main-header{
+        height:70px;
+        padding:0 30px;
+    }
+
+    .search-box{
+        width:320px;
+        display:block;
+    }
+
+    .profile-name{
+        display:inline !important;
+    }
+
+    .hamburger-menu{
+        display:none !important;
+    }
+
+    .sidebar-toggle{
+        display:flex !important;
+    }
+
+    /* Dashboard Cards */
+    .stat-card{
+        height:100%;
+        padding:24px;
+    }
+
+    .stat-value{
+        font-size:32px;
+    }
+
+    /* Main Content */
+    .main-content{
+        padding:30px;
+    }
+
+    /* Tables */
+    .table-responsive{
+        overflow-x:visible;
+    }
+
+    .table-custom{
+        min-width:100%;
+    }
+
+    /* Charts */
+    .chart-placeholder{
+        height:320px;
+    }
+
+    .chart-bars{
+        height:260px;
+    }
+
+    /* Grid */
+    .col-xl-3{
+        width:25%;
+    }
+
+    .col-lg-4{
+        width:33.333333%;
+    }
+
+    .col-lg-8{
+        width:66.666667%;
+    }
+
+    /* Footer */
+    .main-footer{
+        padding:20px 30px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<!-- <base target="_blank"> -->
+</head>
+<body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <img src="logoo.webp" alt="Stackly Logo" class="logo-img">
+                <span class="logo-text">Stackly</span>
+            </a>
+            <button class="sidebar-close d-lg-none" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-section="dashboard"><a href="#" class="menu-link"><i class="fas fa-th-large menu-icon"></i><span class="menu-text">Dashboard</span></a></li>
+                <li class="menu-item" data-section="my-services"><a href="#" class="menu-link"><i class="fas fa-cubes menu-icon"></i><span class="menu-text">My Services</span></a></li>
+                <li class="menu-item" data-section="my-projects"><a href="#" class="menu-link"><i class="fas fa-folder-open menu-icon"></i><span class="menu-text">My Projects</span></a></li>
+                <li class="menu-item" data-section="support-tickets"><a href="#" class="menu-link"><i class="fas fa-life-ring menu-icon"></i><span class="menu-text">Support Tickets</span></a></li>
+                <li class="menu-item" data-section="invoices"><a href="#" class="menu-link"><i class="fas fa-file-invoice-dollar menu-icon"></i><span class="menu-text">Invoices</span></a></li>
+                <li class="menu-item" data-section="documents"><a href="#" class="menu-link"><i class="fas fa-file-alt menu-icon"></i><span class="menu-text">Documents</span></a></li>
+                <li class="menu-item" data-section="notifications"><a href="#" class="menu-link"><i class="fas fa-bell menu-icon"></i><span class="menu-text">Notifications</span></a></li>
+                <li class="menu-item" data-section="settings"><a href="#" class="menu-link"><i class="fas fa-cog menu-icon"></i><span class="menu-text">Settings</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+            </div>
+        </nav>
+    </aside>
+    <div class="main-wrapper" id="mainWrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <button class="hamburger-menu d-lg-none" id="hamburgerMenu"><i class="fas fa-bars"></i></button>
+                <button class="sidebar-toggle d-none d-lg-flex" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+            </div>
+            <div class="header-right">
+                <div class="header-icon-wrapper"><a href="404.html" class="header-icon"><i class="fas fa-bell"></i><span class="notification-badge">3</span></a></div>
+                <div class="header-icon-wrapper"><a href="404.html" class="header-icon"><i class="fas fa-envelope"></i><span class="notification-badge">2</span></a></div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="404.html"><button class="profile-btn" id="profileBtn"><img src="https://ui-avatars.com/api/?name=John+Smith&background=6366f1&color=fff" alt="Profile" class="profile-img"><span class="profile-name d-none d-md-inline">John Smith</span><i class="fas fa-chevron-down profile-arrow"></i></button></a>
+                    <div class="dropdown-menu profile-menu" id="profileMenu">
+                        <a href="404.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="404.html" class="dropdown-item"><i class="fas fa-cog"></i> Account Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="404.html" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <section class="content-section active" id="dashboard">
+                <div class="section-header">
+                    <h1 class="section-title">My Dashboard</h1>
+                    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Dashboard</li></ol></nav>
+                </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div><p class="stat-label">Active Services</p><h3 class="stat-value">5</h3><p class="stat-change positive"><i class="fas fa-arrow-up"></i> 1 new</p></div>
+                                <div class="stat-icon bg-primary-soft"><i class="fas fa-cubes text-primary"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div><p class="stat-label">Active Projects</p><h3 class="stat-value">3</h3><p class="stat-change positive"><i class="fas fa-arrow-up"></i> 2 in progress</p></div>
+                                <div class="stat-icon bg-success-soft"><i class="fas fa-folder-open text-success"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div><p class="stat-label">Open Tickets</p><h3 class="stat-value">2</h3><p class="stat-change negative"><i class="fas fa-arrow-down"></i> 1 resolved</p></div>
+                                <div class="stat-icon bg-warning-soft"><i class="fas fa-life-ring text-warning"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div><p class="stat-label">Monthly Cost</p><h3 class="stat-value">$2,450</h3><p class="stat-change positive"><i class="fas fa-arrow-up"></i> On track</p></div>
+                                <div class="stat-icon bg-info-soft"><i class="fas fa-dollar-sign text-info"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8">
+                        <div class="content-card">
+                            <div class="card-header-custom"><h5 class="card-title">Service Usage Analytics</h5><a href="404.html" class="btn btn-sm btn-primary">View Report</a></div>
+                            <div class="card-body-custom">
+                                <div class="chart-placeholder">
+                                    <div class="chart-bars"><div class="chart-bar" style="height: 70%"></div><div class="chart-bar" style="height: 55%"></div><div class="chart-bar" style="height: 80%"></div><div class="chart-bar" style="height: 65%"></div><div class="chart-bar" style="height: 90%"></div><div class="chart-bar" style="height: 75%"></div><div class="chart-bar" style="height: 60%"></div></div>
+                                    <div class="chart-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="content-card">
+                            <div class="card-header-custom"><h5 class="card-title">Service Distribution</h5></div>
+                            <div class="card-body-custom">
+                                <div class="distribution-chart">
+                                    <div class="distribution-item"><div class="distribution-info"><span class="distribution-name">Cloud Hosting</span><span class="distribution-value">40%</span></div><div class="progress-custom"><div class="progress-bar-custom bg-primary" style="width: 40%"></div></div></div>
+                                    <div class="distribution-item"><div class="distribution-info"><span class="distribution-name">Security</span><span class="distribution-value">25%</span></div><div class="progress-custom"><div class="progress-bar-custom bg-danger" style="width: 25%"></div></div></div>
+                                    <div class="distribution-item"><div class="distribution-info"><span class="distribution-name">Software Dev</span><span class="distribution-value">20%</span></div><div class="progress-custom"><div class="progress-bar-custom bg-success" style="width: 20%"></div></div></div>
+                                    <div class="distribution-item"><div class="distribution-info"><span class="distribution-name">Support</span><span class="distribution-value">15%</span></div><div class="progress-custom"><div class="progress-bar-custom bg-warning" style="width: 15%"></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-header-custom"><h5 class="card-title">Recent Activity</h5><a href="404.html" class="btn btn-sm btn-outline-primary">View All</a></div>
+                    <div class="table-responsive">
+                        <table class="table-custom">
+                            <thead><tr><th>Activity ID</th><th>Type</th><th>Description</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="case-id">#ACT-2024</span></td><td>Project Update</td><td>Cloud migration phase 2 completed</td><td><span class="badge-status status-active">Completed</span></td><td>Jul 05, 2026</td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                                <tr><td><span class="case-id">#ACT-2023</span></td><td>Support Ticket</td><td>Server performance issue resolved</td><td><span class="badge-status status-closed">Resolved</span></td><td>Jul 04, 2026</td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                                <tr><td><span class="case-id">#ACT-2022</span></td><td>Invoice</td><td>Monthly service invoice generated</td><td><span class="badge-status status-pending">Pending</span></td><td>Jul 01, 2026</td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                                <tr><td><span class="case-id">#ACT-2021</span></td><td>Security Alert</td><td>Security patch applied successfully</td><td><span class="badge-status status-active">Completed</span></td><td>Jun 28, 2026</td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="my-services">
+                <div class="section-header"><h1 class="section-title">My Services</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">My Services</li></ol></nav></div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3"><div class="category-card"><div class="category-icon bg-primary-soft"><i class="fas fa-cloud text-primary"></i></div><h4>Cloud Hosting</h4><p>AWS cloud hosting with 99.9% uptime guarantee.</p><a href="404.html" class="btn btn-outline-primary btn-sm">Manage</a></div></div>
+                    <div class="col-md-6 col-lg-3"><div class="category-card"><div class="category-icon bg-danger-soft"><i class="fas fa-shield-alt text-danger"></i></div><h4>Security Suite</h4><p>Advanced firewall and threat monitoring.</p><a href="404.html" class="btn btn-outline-danger btn-sm">Manage</a></div></div>
+                    <div class="col-md-6 col-lg-3"><div class="category-card"><div class="category-icon bg-success-soft"><i class="fas fa-code text-success"></i></div><h4>Dev Services</h4><p>Custom web and mobile app development.</p><a href="404.html" class="btn btn-outline-success btn-sm">Manage</a></div></div>
+                    <div class="col-md-6 col-lg-3"><div class="category-card"><div class="category-icon bg-warning-soft"><i class="fas fa-headset text-warning"></i></div><h4>24/7 Support</h4><p>Round-the-clock technical assistance.</p><a href="404.html" class="btn btn-outline-warning btn-sm">Manage</a></div></div>
+                </div>
+            </section>
+            <section class="content-section" id="my-projects">
+                <div class="section-header"><h1 class="section-title">My Projects</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">My Projects</li></ol></nav></div>
+                <div class="content-card">
+                    <div class="card-header-custom"><h5 class="card-title">Project List</h5><a href="404.html" class="btn btn-sm btn-primary">Request New</a></div>
+                    <div class="table-responsive">
+                        <table class="table-custom">
+                            <thead><tr><th>Project ID</th><th>Project Name</th><th>Service Type</th><th>Progress</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="case-id">#PRJ-001</span></td><td>Cloud Migration</td><td>Cloud Services</td><td><div class="progress-custom"><div class="progress-bar-custom bg-primary" style="width: 75%"></div></div></td><td><span class="badge-status status-active">In Progress</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-edit"></i></a></td></tr>
+                                <tr><td><span class="case-id">#PRJ-002</span></td><td>Security Audit</td><td>Cybersecurity</td><td><div class="progress-custom"><div class="progress-bar-custom bg-danger" style="width: 30%"></div></div></td><td><span class="badge-status status-pending">Pending</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-edit"></i></a></td></tr>
+                                <tr><td><span class="case-id">#PRJ-003</span></td><td>E-Commerce App</td><td>Software Dev</td><td><div class="progress-custom"><div class="progress-bar-custom bg-success" style="width: 90%"></div></div></td><td><span class="badge-status status-active">Testing</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-edit"></i></a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="support-tickets">
+                <div class="section-header"><h1 class="section-title">Support Tickets</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Support Tickets</li></ol></nav></div>
+                <div class="content-card">
+                    <div class="card-header-custom"><h5 class="card-title">My Tickets</h5><a href="404.html" class="btn btn-sm btn-primary">New Ticket</a></div>
+                    <div class="table-responsive">
+                        <table class="table-custom">
+                            <thead><tr><th>Ticket ID</th><th>Subject</th><th>Priority</th><th>Category</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="case-id">#TCK-001</span></td><td>Server slow response time</td><td><span class="badge-status status-active">High</span></td><td>Performance</td><td><span class="badge-status status-active">Open</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                                <tr><td><span class="case-id">#TCK-002</span></td><td>Email configuration issue</td><td><span class="badge-status status-pending">Medium</span></td><td>Email</td><td><span class="badge-status status-pending">In Progress</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                                <tr><td><span class="case-id">#TCK-003</span></td><td>SSL certificate renewal</td><td><span class="badge-status status-closed">Low</span></td><td>Security</td><td><span class="badge-status status-closed">Resolved</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="invoices">
+                <div class="section-header"><h1 class="section-title">Invoices</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Invoices</li></ol></nav></div>
+                <div class="content-card">
+                    <div class="card-header-custom"><h5 class="card-title">Invoice History</h5><a href="404.html" class="btn btn-sm btn-primary">Download All</a></div>
+                    <div class="table-responsive">
+                        <table class="table-custom">
+                            <thead><tr><th>Invoice #</th><th>Description</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="case-id">#INV-2026-07</span></td><td>July 2026 - Monthly Services</td><td>$2,450.00</td><td>Jul 01, 2026</td><td><span class="badge-status status-pending">Pending</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-download"></i></a></td></tr>
+                                <tr><td><span class="case-id">#INV-2026-06</span></td><td>June 2026 - Monthly Services</td><td>$2,300.00</td><td>Jun 01, 2026</td><td><span class="badge-status status-active">Paid</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-download"></i></a></td></tr>
+                                <tr><td><span class="case-id">#INV-2026-05</span></td><td>May 2026 - Monthly Services</td><td>$2,300.00</td><td>May 01, 2026</td><td><span class="badge-status status-active">Paid</span></td><td><a href="404.html" class="btn-action"><i class="fas fa-eye"></i></a><a href="404.html" class="btn-action"><i class="fas fa-download"></i></a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="documents">
+                <div class="section-header"><h1 class="section-title">Documents</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Documents</li></ol></nav></div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4"><div class="document-card"><div class="document-icon"><i class="fas fa-file-contract text-primary"></i></div><h5>Service Agreements</h5><p>All signed service contracts and agreements.</p><div class="document-meta"><span><i class="fas fa-file"></i> 5 files</span><a href="404.html" class="btn btn-sm btn-primary">View</a></div></div></div>
+                    <div class="col-md-6 col-lg-4"><div class="document-card"><div class="document-icon"><i class="fas fa-file-alt text-success"></i></div><h5>Project Reports</h5><p>Weekly and monthly project progress reports.</p><div class="document-meta"><span><i class="fas fa-file"></i> 12 files</span><a href="404.html" class="btn btn-sm btn-primary">View</a></div></div></div>
+                    <div class="col-md-6 col-lg-4"><div class="document-card"><div class="document-icon"><i class="fas fa-file-invoice text-warning"></i></div><h5>Invoices & Receipts</h5><p>All billing documents and payment receipts.</p><div class="document-meta"><span><i class="fas fa-file"></i> 18 files</span><a href="404.html" class="btn btn-sm btn-primary">View</a></div></div></div>
+                </div>
+            </section>
+            <section class="content-section" id="notifications">
+                <div class="section-header"><h1 class="section-title">Notifications</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Notifications</li></ol></nav></div>
+                <div class="content-card">
+                    <div class="card-header-custom"><h5 class="card-title">All Notifications</h5><a href="404.html" class="btn btn-sm btn-outline-primary">Mark All Read</a></div>
+                    <div class="card-body-custom">
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div class="notification-icon bg-primary-soft"><i class="fas fa-project-diagram text-primary"></i></div>
+                                <div class="notification-content"><h6>Project Update</h6><p>Your cloud migration project phase 2 has been completed.</p><span class="notification-time">2 hours ago</span></div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon bg-danger-soft"><i class="fas fa-shield-alt text-danger"></i></div>
+                                <div class="notification-content"><h6>Security Alert</h6><p>Security patch has been applied to your servers.</p><span class="notification-time">5 hours ago</span></div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon bg-warning-soft"><i class="fas fa-file-invoice text-warning"></i></div>
+                                <div class="notification-content"><h6>Invoice Generated</h6><p>Your July 2026 invoice is now available for download.</p><span class="notification-time">1 day ago</span></div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon bg-success-soft"><i class="fas fa-check-circle text-success"></i></div>
+                                <div class="notification-content"><h6>Ticket Resolved</h6><p>Your support ticket #TCK-003 has been resolved.</p><span class="notification-time">2 days ago</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="settings">
+                <div class="section-header"><h1 class="section-title">Settings</h1><nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="404.html">Home</a></li><li class="breadcrumb-item active">Settings</li></ol></nav></div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="content-card">
+                            <div class="card-header-custom"><h5 class="card-title">Profile Settings</h5></div>
+                            <div class="card-body-custom">
+                                <form class="settings-form">
+                                    <div class="row g-3">
+                                        <div class="col-md-6"><label class="form-label">Full Name</label><input type="text" class="form-control-custom" value="John Smith"></div>
+                                        <div class="col-md-6"><label class="form-label">Email Address</label><input type="email" class="form-control-custom" value="john.smith@company.com"></div>
+                                        <div class="col-md-6"><label class="form-label">Phone Number</label><input type="tel" class="form-control-custom" value="+1 (555) 987-6543"></div>
+                                        <div class="col-md-6"><label class="form-label">Company</label><input type="text" class="form-control-custom" value="Smith Enterprises"></div>
+                                        <div class="col-12"><label class="form-label">Address</label><textarea class="form-control-custom" rows="3">123 Business Ave, New York, NY 10001</textarea></div>
+                                    </div>
+                                    <div class="mt-4"><a href="404.html" class="btn btn-primary">Save Changes</a><a href="404.html" class="btn btn-outline-secondary ms-2">Cancel</a></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="content-card">
+                            <div class="card-header-custom"><h5 class="card-title">Notification Preferences</h5></div>
+                            <div class="card-body-custom">
+                                <div class="notification-settings">
+                                    <div class="form-check-custom"><input type="checkbox" checked id="emailNotif"><label for="emailNotif">Email Notifications</label></div>
+                                    <div class="form-check-custom"><input type="checkbox" checked id="projectUpdates"><label for="projectUpdates">Project Updates</label></div>
+                                    <div class="form-check-custom"><input type="checkbox" id="smsNotif"><label for="smsNotif">SMS Notifications</label></div>
+                                    <div class="form-check-custom"><input type="checkbox" checked id="invoiceAlerts"><label for="invoiceAlerts">Invoice Alerts</label></div>
+                                    <div class="form-check-custom"><input type="checkbox" checked id="securityAlerts"><label for="securityAlerts">Security Alerts</label></div>
+                                </div>
+                                <div class="mt-4"><a href="404.html" class="btn btn-primary w-100">Save Preferences</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="main-footer"><p>&copy; 2026 Stackly IT Solutions. All rights reserved.</p></footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>/* ============================================
+   STACKLY ADMIN DASHBOARD - SCRIPT.JS
+   Interactive Functions & Navigation
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ==========================================
+    // DOM Elements
+    // ==========================================
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const profileBtn = document.getElementById('profileBtn');
+    const profileMenu = document.getElementById('profileMenu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    // ==========================================
+    // Mobile Sidebar Toggle
+    // ==========================================
+    function openMobileSidebar() {
+        sidebar.classList.add('active');
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileSidebar() {
+        sidebar.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    hamburgerMenu.addEventListener('click', openMobileSidebar);
+    sidebarClose.addEventListener('click', closeMobileSidebar);
+    mobileOverlay.addEventListener('click', closeMobileSidebar);
+
+    // ==========================================
+    // Desktop Sidebar Collapse
+    // ==========================================
+    let sidebarCollapsed = false;
+
+    sidebarToggle.addEventListener('click', function() {
+        sidebarCollapsed = !sidebarCollapsed;
+        sidebar.classList.toggle('collapsed');
+        
+        // Save preference to localStorage
+        localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
+    });
+
+    // Restore sidebar state from localStorage
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState === 'true') {
+        sidebarCollapsed = true;
+        sidebar.classList.add('collapsed');
+    }
+
+    // ==========================================
+    // Profile Dropdown Toggle
+    // ==========================================
+    profileBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!profileDropdown.contains(e.target)) {
+            profileDropdown.classList.remove('active');
+        }
+    });
+
+    // ==========================================
+    // Section Navigation (Sidebar Menu)
+    // ==========================================
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const sectionId = this.getAttribute('data-section');
+            
+            // Remove active class from all menu items
+            menuItems.forEach(function(mi) {
+                mi.classList.remove('active');
+            });
+            
+            // Add active class to clicked menu item
+            this.classList.add('active');
+            
+            // Hide all content sections
+            contentSections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Close mobile sidebar after selection
+            if (window.innerWidth < 992) {
+                closeMobileSidebar();
+            }
+            
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // ==========================================
+    // Handle Window Resize
+    // ==========================================
+    window.addEventListener('resize', function() {
+        // Close mobile sidebar when resizing to desktop
+        if (window.innerWidth >= 992) {
+            closeMobileSidebar();
+        }
+    });
+
+    // ==========================================
+    // Search Box Focus Effects
+    // ==========================================
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    }
+
+    // ==========================================
+    // Animate Stat Cards on Load
+    // ==========================================
+    function animateStatCards() {
+        const statValues = document.querySelectorAll('.stat-value');
+        statValues.forEach(function(stat) {
+            const finalValue = stat.textContent;
+            stat.style.opacity = '0';
+            stat.style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                stat.style.transition = 'all 0.6s ease';
+                stat.style.opacity = '1';
+                stat.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    }
+
+    // Run animation on initial load
+    animateStatCards();
+
+    // ==========================================
+    // Smooth Scroll for Anchor Links
+    // ==========================================
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+
+    // ==========================================
+    // Add Loading Animation to Buttons
+    // ==========================================
+    document.querySelectorAll('.btn').forEach(function(btn) {
+        // Skip sidebar menu buttons (they have their own handler)
+        if (btn.closest('.menu-link')) return;
+        
+        btn.addEventListener('click', function(e) {
+            // Don't interfere with actual links
+            const href = this.getAttribute('href');
+            if (href && href !== '#' && !href.startsWith('404')) {
+                return;
+            }
+        });
+    });
+
+    // ==========================================
+    // Notification Badge Animation
+    // ==========================================
+    const badges = document.querySelectorAll('.notification-badge');
+    badges.forEach(function(badge, index) {
+        badge.style.animation = `pulse 2s infinite ${index * 0.5}s`;
+    });
+
+    // Add pulse animation keyframes dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ==========================================
+    // Table Row Hover Animation
+    // ==========================================
+    const tableRows = document.querySelectorAll('.table-custom tbody tr');
+    tableRows.forEach(function(row) {
+        row.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.2s ease';
+        });
+    });
+
+    // ==========================================
+    // Chart Bar Animation on Scroll
+    // ==========================================
+    function animateChartBars() {
+        const chartBars = document.querySelectorAll('.chart-bar');
+        chartBars.forEach(function(bar, index) {
+            const height = bar.style.height;
+            bar.style.height = '0%';
+            setTimeout(function() {
+                bar.style.transition = 'height 0.8s ease';
+                bar.style.height = height;
+            }, index * 100);
+        });
+    }
+
+    // Trigger chart animation when dashboard is shown
+    const dashboardSection = document.getElementById('dashboard');
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.target.classList.contains('active')) {
+                setTimeout(animateChartBars, 100);
+            }
+        });
+    });
+
+    if (dashboardSection) {
+        observer.observe(dashboardSection, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    // ==========================================
+    // Progress Bar Animation
+    // ==========================================
+    function animateProgressBars() {
+        const progressBars = document.querySelectorAll('.progress-bar-custom');
+        progressBars.forEach(function(bar) {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(function() {
+                bar.style.transition = 'width 1s ease';
+                bar.style.width = width;
+            }, 200);
+        });
+    }
+
+    // ==========================================
+    // Keyboard Navigation Support
+    // ==========================================
+    document.addEventListener('keydown', function(e) {
+        // ESC to close mobile sidebar
+        if (e.key === 'Escape') {
+            closeMobileSidebar();
+            profileDropdown.classList.remove('active');
+        }
+    });
+
+    // ==========================================
+    // Touch Swipe Support for Mobile Sidebar
+    // ==========================================
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        const swipeThreshold = 100;
+        const diff = touchEndX - touchStartX;
+        
+        // Swipe right to open sidebar (from left edge)
+        if (diff > swipeThreshold && touchStartX < 50) {
+            openMobileSidebar();
+        }
+        
+        // Swipe left to close sidebar
+        if (diff < -swipeThreshold && sidebar.classList.contains('active')) {
+            closeMobileSidebar();
+        }
+    }
+
+    // ==========================================
+    // Active Menu Highlight on Page Load
+    // ==========================================
+    function setActiveMenuFromHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const targetMenu = document.querySelector(`[data-section="${hash}"]`);
+            if (targetMenu) {
+                targetMenu.click();
+            }
+        }
+    }
+
+    // Check hash on load
+    setActiveMenuFromHash();
+
+    // ==========================================
+    // Console Welcome Message
+    // ==========================================
+    console.log('%c Stackly Admin Dashboard ', 'background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; font-size: 20px; font-weight: bold; padding: 10px 20px; border-radius: 10px;');
+    console.log('%c Welcome to the Stackly Legal Management System ', 'color: #6366f1; font-size: 14px;');
+
+});</script>
+</body>
+</html>
