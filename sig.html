@@ -326,7 +326,7 @@ createBtn.disabled = !(
                     createBtn.disabled = false;
                     const overlay = document.createElement('div');
                     overlay.className = 'success-overlay';
-                    overlay.innerHTML = '<div class="success-content"><div class="success-icon"><i class="fas fa-check"></i></div><h3>Account Created!</h3><p>Your password has been set successfully.</p></div>';
+                    overlay.innerHTML = '<div class="success-content"><div class="success-icon"><i class="fas fa-check"></i></div><h3>Account Created!</h3><p>Your account has been set successfully.</p></div>';
                     document.body.appendChild(overlay);
                     setTimeout(() => overlay.classList.add('show'), 10);
                     setTimeout(() => { overlay.classList.remove('show'); setTimeout(() => overlay.remove(), 300); window.location.href = 'login.html'; }, 2500);
